@@ -22,7 +22,7 @@
               {{ car.is_registered ? 'Áno' : 'Nie' }}
             </span>
           </td>
-          <td>{{ car.parts.length }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
@@ -30,7 +30,6 @@
 </template>
 
 <script setup>
-// Отримуємо 'cars' як пропс від контролера
 defineProps({
   cars: Array
 })
