@@ -1,15 +1,21 @@
+<script setup>
+  defineProps({
+    "cars": Array,
+  })
+</script>
+
 <template>
   <div class="container mt-5">
-    <h1 class="mb-4">Zoznam áut (Inventory)</h1>
+    <h1 class="mb-4">Zoznam áut</h1>
     
     <table class="table table-striped table-hover">
       <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th>Názov</th>
-          <th>ŠPZ (Registration)</th>
-          <th>Registrované</th>
-          <th>Počet dielov</th>
+          <th>Name</th>
+          <th>Registration Number</th>
+          <th>Registered</th>
+          <th>Amount of Parts</th>
         </tr>
       </thead>
       <tbody>
@@ -28,9 +34,3 @@
     </table>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  cars: Array
-})
-</script>
