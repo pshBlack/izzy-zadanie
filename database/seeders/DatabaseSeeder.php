@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Car::factory(100)->create();
+        Car::factory(10)->create();
         Part::factory(200)->create();
     }
 }

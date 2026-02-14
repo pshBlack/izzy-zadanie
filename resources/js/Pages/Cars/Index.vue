@@ -3,9 +3,15 @@ defineProps({
     "cars": Object,
 })
 import moment from 'moment';
-import { Link } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3'
 import Layout from '../../Layouts/Main.vue'
 defineOptions({ layout: Layout })
+
+const deleteCar = (id) => {
+    if (confirm('Do you really want delete that record?')) {
+        router.delete(route('cars.destroy', id));
+    }
+}
 </script>
 
 <template>
@@ -36,9 +42,13 @@ defineOptions({ layout: Layout })
                     </td>
                     <td>{{ car.parts_count }}</td>
                     <td>{{ moment(car.created_at).format('DD/MM/YYYY') }}</td>
-                    <td class="mt-3">
-                        <a href="#"><i class="bi bi-trash gray"></i></a>
-                        <a class="ms-3" href="#"><i class="bi bi-pencil gray"></i></a>
+                    <td>
+                        <div class="d-flex gap-3 mt-1">
+                            <Link :href="route('cars.show', car.id)"><i class=" bi bi-eye text-dark"></i></Link>
+                            <Link class="" :href="route('cars.edit', car.id)"><i class="bi bi-pencil text-dark"></i>
+                            </Link>
+                            <i @click="deleteCar(car.id)" class="bi bi-trash text-dark fix"></i>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -49,7 +59,7 @@ defineOptions({ layout: Layout })
                 <li v-for="car in cars.links" :key="car.page" class="page-item"
                     :class="{ 'active': car.active, 'disabled': !car.url }">
 
-                    <Link class="page-link gray-list" :href="car.url || '#'" v-html="car.label" />
+                    <Link class="page-link" :href="car.url || '#'" v-html="car.label" />
                 </li>
             </ul>
         </nav>
@@ -57,7 +67,7 @@ defineOptions({ layout: Layout })
     </div>
 </template>
 <style lang="css" scoped>
-.gray {
-    color: #1d1d1d !important;
+.fix {
+    cursor: pointer;
 }
 </style>
