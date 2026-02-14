@@ -13,7 +13,13 @@ import { Link } from "@inertiajs/vue3";
                             <Link class="nav-link active" aria-current="page" :href="route('cars.index')">Home</Link>
                         </li>
                         <li class="nav-item">
+                            <Link class="nav-link" :href="route('parts.index')">Parts</Link>
+                        </li>
+                        <li class="nav-item">
                             <Link class="nav-link" :href="route('cars.create')">Add Car</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" :href="route('parts.create')">Add Part</Link>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

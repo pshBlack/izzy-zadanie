@@ -43,7 +43,7 @@ defineOptions({ layout: Layout })
                 </div>
             </div>
         </div>
-        <h1 class="mt-5 mb-3">List of parts</h1>
+        <h2 class="mt-5 mb-3">List of parts</h2>
 
         <table class="table table-striped table-hover">
             <thead class="table-dark">
@@ -63,11 +63,9 @@ defineOptions({ layout: Layout })
                     <td>{{ moment(part.created_at).format('DD/MM/YYYY') }}</td>
                     <td>
                         <div class="d-flex gap-3 mt-1">
-                            <Link :href="route('cars.show', car.id)"><i class=" bi bi-eye text-dark" />
-                            </Link>
                             <Link :href="route('cars.edit', car.id)"><i class="bi bi-pencil text-dark" />
                             </Link>
-                            <!-- <i @click="deleteCar(part.id)" class="bi bi-trash text-dark fix"></i> -->
+                            <i @click="deleteCar(part.id)" class="bi bi-trash text-danger fix"></i>
                         </div>
                     </td>
                 </tr>
@@ -85,4 +83,8 @@ defineOptions({ layout: Layout })
     </div>
 
 </template>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.fix {
+    cursor: pointer;
+}
+</style>

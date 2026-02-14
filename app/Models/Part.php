@@ -13,7 +13,7 @@ class Part extends Model
     use SoftDeletes;
     protected $fillable = [
         'name',
-        'serial_number',
+        'serialnumber',
         'car_id'
     ];
     public function car() {

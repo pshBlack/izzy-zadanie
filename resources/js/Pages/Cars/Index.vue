@@ -15,7 +15,7 @@ const deleteCar = (id) => {
 </script>
 
 <template>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <h1 class="mb-4">List of autos</h1>
 
         <table class="table table-striped table-hover">
@@ -34,7 +34,7 @@ const deleteCar = (id) => {
                 <tr v-for="car in cars.data" :key="car.id">
                     <td>{{ car.id }}</td>
                     <td>{{ car.name }}</td>
-                    <td>{{ car.registration_number || '—' }}</td>
+                    <td>{{ car.registration_number || '-' }}</td>
                     <td>
                         <span :class="['badge', car.is_registered ? 'bg-success' : 'bg-secondary']">
                             {{ car.is_registered ? 'Yes' : 'No' }}
@@ -44,10 +44,10 @@ const deleteCar = (id) => {
                     <td>{{ moment(car.created_at).format('DD/MM/YYYY') }}</td>
                     <td>
                         <div class="d-flex gap-3 mt-1">
-                            <Link :href="route('cars.show', car.id)"><i class=" bi bi-eye text-dark"></i></Link>
+                            <Link :href="route('cars.show', car.id)"><i class=" bi bi-eye text-primary"></i></Link>
                             <Link class="" :href="route('cars.edit', car.id)"><i class="bi bi-pencil text-dark"></i>
                             </Link>
-                            <i @click="deleteCar(car.id)" class="bi bi-trash text-dark fix"></i>
+                            <i @click="deleteCar(car.id)" class="bi bi-trash text-danger fix"></i>
                         </div>
                     </td>
                 </tr>

@@ -17,7 +17,7 @@ class CarController extends Controller
     }
 
     public function create() {
-        return Inertia::render('Cars/CreateForm');
+        return Inertia::render('Cars/CreateCarForm');
     }
 
     public function store(CarRequest $request) {
@@ -37,7 +37,7 @@ class CarController extends Controller
     }
 
     public function edit(Car $car) {
-        return Inertia::render('Cars/UpdateForm', [
+        return Inertia::render('Cars/UpdateCarForm', [
             'car'=>$car,
         ]);
     }
