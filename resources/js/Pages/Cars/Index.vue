@@ -16,7 +16,7 @@ const deleteCar = (id) => {
 
 <template>
     <div class="container mt-5">
-        <h1 class="mb-4">Zoznam áut</h1>
+        <h1 class="mb-4">List of autos</h1>
 
         <table class="table table-striped table-hover">
             <thead class="table-dark">
@@ -27,7 +27,7 @@ const deleteCar = (id) => {
                     <th>Registered</th>
                     <th>Parts</th>
                     <th>Creation Date</th>
-                    <th>Actions</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@ const deleteCar = (id) => {
                     <td>{{ car.registration_number || '—' }}</td>
                     <td>
                         <span :class="['badge', car.is_registered ? 'bg-success' : 'bg-secondary']">
-                            {{ car.is_registered ? 'Áno' : 'Nie' }}
+                            {{ car.is_registered ? 'Yes' : 'No' }}
                         </span>
                     </td>
                     <td>{{ car.parts_count }}</td>
@@ -53,13 +53,11 @@ const deleteCar = (id) => {
                 </tr>
             </tbody>
         </table>
-        <nav aria-label="Page Pagination" class="mt-5 gray-900">
-            <!-- {{cars.links}} -->
-            <ul class="pagination pagination-md justify-content-center ">
-                <li v-for="car in cars.links" :key="car.page" class="page-item"
+        <nav v-if="cars.links.length > 3" aria-label="Page Pagination" class="mt-5 ">
+            <ul class="pagination pagination-md justify-content-center">
+                <li v-for="car in cars.links" :key="car.page" class="page-item "
                     :class="{ 'active': car.active, 'disabled': !car.url }">
-
-                    <Link class="page-link" :href="car.url || '#'" v-html="car.label" />
+                    <Link class="page-link " :href="car.url || '#'" v-html="car.label" />
                 </li>
             </ul>
         </nav>

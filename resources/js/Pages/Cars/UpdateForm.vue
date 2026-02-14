@@ -1,6 +1,7 @@
 <script setup>
 import { Form, useForm } from '@inertiajs/vue3'
 import Layout from '../../Layouts/Main.vue'
+import { watch } from 'vue'
 defineOptions({ layout: Layout })
 const props = defineProps({
     "car": Object,
@@ -10,18 +11,20 @@ const form = useForm({
     is_registered: props.car.is_registered,
     registration_number: props.car.registration_number,
 })
-// const form = useForm({
-//     name: 'car.name',
-//     is_registered: 0,
-//     registration_number: 'car.registration_number',
-// })
+
+watch(() => form.is_registered, (newValue) => {
+    if (newValue == 0) {
+        form.registration_number = null;
+    }
+})
+
 </script>
 
 <template>
     <Form @submit.prevent="form.patch(`/cars/${props.car.id}`)" class="container">
 
         <div class="mb-3">
-            <label for="name" class="form-label">Vehicle's name</label>
+            <label for="name" class="form-label">Auto's name</label>
             <input type="text" class="form-control" id="name" v-model="form.name" placeholder="Name of vehicle">
             <div v-if="form.errors.name" class="form-text text-danger">{{ form.errors.name }}</div>
             <div v-else class="form-text">

@@ -3,11 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
 
-Route::get('/', [CarController::class,'index'])->name('cars.index');
-Route::get('/cars/create', [CarController::class,'create'])->name('cars.create');
-Route::post('/cars', [CarController::class,'store'])->name('cars.store');
-Route::get('/cars/{car}', [CarController::class,'show'])->name('cars.show');
-Route::get('/cars/{car}/edit', [CarController::class,'edit'])->name('cars.edit');
-Route::patch('/cars/{car}', [CarController::class,'update'])->name('cars.update');
-Route::delete('/cars/{car}', [CarController::class,'destroy'])->name('cars.destroy');
+Route::controller(CarController::class)->group(function () {
+    Route::get('/', 'index')->name('cars.index');
+    Route::get('/cars/create', 'create')->name('cars.create');
+    Route::post('/cars', 'store')->name('cars.store');
+    Route::get('/cars/{car}', 'show')->name('cars.show');
+    Route::get('/cars/{car}/edit', 'edit')->name('cars.edit');
+    Route::patch('/cars/{car}', 'update')->name('cars.update');
+    Route::delete('/cars/{car}', 'destroy')->name('cars.destroy');
+});
 
+    

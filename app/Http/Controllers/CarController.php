@@ -32,7 +32,7 @@ class CarController extends Controller
     public function show(Car $car) {
         return Inertia::render('Cars/Car', [
             'car'=>$car,
-            'parts'=>$car->parts()->get()
+            'parts'=>$car->parts()->paginate(10),
         ]);
     }
 
@@ -44,7 +44,7 @@ class CarController extends Controller
 
     public function update(CarRequest $request, Car $car) {
         $newCar = $request->validated();
-        $car->update($newCar);
+        $car->updateOrFail($newCar);
         return to_route('cars.index');
     }
 

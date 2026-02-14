@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { watch } from 'vue';
 import { Form, useForm } from '@inertiajs/vue3'
 import Layout from '../../Layouts/Main.vue'
 defineOptions({ layout: Layout })
@@ -9,13 +9,21 @@ const form = useForm({
     is_registered: 0,
     registration_number: '',
 })
+
+watch(() => form.is_registered, (newValue) => {
+    if (newValue == 0) {
+        form.registration_number = null;
+    }
+})
+
+
 </script>
 
 <template>
     <Form @submit.prevent="form.post('/cars')" class="container">
         <div class="mb-3">
-            <label for="name" class="form-label">Vehicle's name</label>
-            <input type="text" class="form-control" id="name" v-model="form.name" placeholder="Name of vehicle">
+            <label for="name" class="form-label">Auto's name</label>
+            <input type="text" class="form-control" id="name" v-model="form.name" placeholder="Name of auto">
             <div v-if="form.errors.name" class="form-text text-danger">{{ form.errors.name }}</div>
             <div v-else class="form-text">
                 <span>Example: Toyota Supra</span>
@@ -25,7 +33,7 @@ const form = useForm({
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="is_registered" id="yes" v-model="form.is_registered"
                 :value="1">
-            <label class="form-check-label" for="isRegistered">
+            <label class="form-check-label" for="is_registered">
                 Auto is registered
             </label>
         </div>
@@ -36,8 +44,6 @@ const form = useForm({
                 Auto is not registered
             </label>
         </div>
-
-
         <div v-if="form.is_registered" class="mb-3">
             <label for="name" class="form-label">Registracne cislo</label>
             <input type="text" class="form-control" id="name" v-model="form.registration_number"
