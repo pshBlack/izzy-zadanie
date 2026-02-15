@@ -1,24 +1,26 @@
 <script setup>
-import { Link, router, Form } from "@inertiajs/vue3";
+import { Link, router, Form, usePage } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 
 const searchText = ref('');
-
+const page = usePage();
 const debounceSearch = useDebounceFn((value) => {
-    router.get('/', { search: value }, {
+    const url = page.url.split('?')[0]
+    router.get(url, { search: value }, {
         preserveState: true,
         replace: true
     })
-}, 1000)
+}, 300)
 
 watch(searchText, (newSearchText) => {
-    debounceSearch(newSearchText || null);
+    debounceSearch(newSearchText || '');
 })
 </script>
 
 <template>
     <main>
+
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
