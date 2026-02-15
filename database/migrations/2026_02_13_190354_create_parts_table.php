@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('serialnumber');
-            $table->unsignedBigInteger('car_id');
+            $table->unsignedBigInteger('car_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
