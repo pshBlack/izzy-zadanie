@@ -1,4 +1,5 @@
 <script setup>
+import Layout from '../../Layouts/Main.vue'
 import moment from 'moment';
 import { Link, router } from '@inertiajs/vue3';
 
@@ -6,6 +7,7 @@ defineProps({
     "car": Object,
     "parts": Object,
 })
+defineOptions({ layout: Layout })
 
 const deletePart = (part_id) => {
     if (confirm("Do you want to delete this part?")) {
