@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\PartFilter;
 use App\Http\Requests\PartRequest;
 use Illuminate\Http\Request;
 use App\Models\Part;
@@ -10,10 +11,13 @@ use App\Models\Car;
 use Inertia\Inertia;
 class PartController extends Controller
 {
-    public function index() {
-        $parts = Part::with('car:id,name')->paginate(10);
+    public function index(Request $request,PartFilter $filter) {
+        $parts = Part::with('car:id,name')->filter($filter)
+        ->paginate(10)
+        ->withQueryString();;
         return Inertia::render('Parts/Index', [
-            'parts'=> $parts    
+            'parts'=> $parts,
+            'filters'=> $request->all()
         ]);
     }
     
