@@ -2,8 +2,9 @@
 import Layout from '../../Layouts/Main.vue'
 import moment from 'moment';
 import { Link, router } from '@inertiajs/vue3';
-defineProps({
+const props = defineProps({
     "parts": Object,
+    "filters": Object
 })
 defineOptions({ layout: Layout })
 
@@ -11,6 +12,17 @@ const deletePart = (part_id) => {
     if (confirm("Do you want to delete this part?")) {
         router.delete(route('parts.destroy', part_id));
     }
+}
+
+const sortBy = (field) => {
+    let direction = props.filters.direction === 'asc' && props.filters.sort === field ? "desc" : "asc";
+    router.get("/parts", {
+        sort: field,
+        direction: direction
+    }, {
+        preserveState: true,
+        replace: true,
+    });
 }
 
 </script>
@@ -21,11 +33,11 @@ const deletePart = (part_id) => {
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Searial Number</th>
-                    <th>Car Name</th>
-                    <th>Creation Date</th>
+                    <th @click="sortBy('id')">ID</th>
+                    <th @click="sortBy('name')">Name</th>
+                    <th @click=" sortBy('serialnumber')">Searial Number</th>
+                    <th @click="sortBy('car_id')">Car Name</th>
+                    <th @click="sortBy('created_at')">Creation Date</th>
                     <th></th>
                 </tr>
             </thead>
