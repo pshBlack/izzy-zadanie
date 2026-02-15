@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 
+use App\Filters\CarFilter;
 use Inertia\Inertia;
 use App\Models\Car;
 use App\Http\Requests\CarRequest;
-
+use Illuminate\Http\Request;
 class CarController extends Controller
 {
-    public function index() {
-        $cars = Car::withCount('parts')->paginate(10);
+    public function index(Request $request, CarFilter $filter) {
+        
+        $cars = Car::withCount('parts')
+        ->filter($filter)
+        ->paginate(10)
+        ->withQueryString();
         return Inertia::render('Cars/Index', [
             'cars' => $cars,
+            'filters' => $request->all()
         ]);
     }
 

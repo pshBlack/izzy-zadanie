@@ -28,8 +28,24 @@ class PartController extends Controller
         Part::create($part);
         return to_route('parts.index');
     }
+
+    public function edit(Part $part) {
+        $cars = Car::all();
+        return Inertia::render('Parts/UpdatePartForm', [
+            'part' => $part,
+            'cars'=> $cars
+        ]);
+    }
+
+    public function update(PartRequest $request, Part $part) {
+        $newPart = $request->validated();
+        $part->updateOrFail($newPart);
+        return to_route('parts.index');
+    }
+
+
     public function destroy(Part $part) {
         $part->delete();
-        return to_route('parts.index'); 
+        return redirect()->back(); 
     }
 }

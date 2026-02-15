@@ -41,9 +41,9 @@ const deletePart = (part_id) => {
                     <td>
                         <div class="d-flex gap-3 mt-1">
 
-                            <Link :href="route('cars.edit', part.car_id)"><i class="bi bi-pencil text-dark" />
+                            <Link :href="route('parts.edit', part.id)"><i class="bi bi-pencil text-dark" />
                             </Link>
-                            <i @click="deletePart(part.id)" class="bi bi-trash text-danger fix"></i>
+                            <i @click="deletePart(part.id)" class="bi bi-trash text-danger pointer"></i>
                         </div>
                     </td>
                 </tr>
@@ -59,3 +59,9 @@ const deletePart = (part_id) => {
         </nav>
     </div>
 </template>
+
+<style lang="css" scoped>
+.pointer {
+    cursor: pointer;
+}
+</style>

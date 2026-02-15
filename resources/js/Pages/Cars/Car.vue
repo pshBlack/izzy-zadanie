@@ -1,12 +1,18 @@
 <script setup>
-import Layout from '../../Layouts/Main.vue'
 import moment from 'moment';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+
 defineProps({
     "car": Object,
     "parts": Object,
 })
-defineOptions({ layout: Layout })
+
+const deletePart = (part_id) => {
+    if (confirm("Do you want to delete this part?")) {
+        router.delete(route('parts.destroy', part_id));
+    }
+}
+
 </script>
 
 <template>
@@ -63,9 +69,9 @@ defineOptions({ layout: Layout })
                     <td>{{ moment(part.created_at).format('DD/MM/YYYY') }}</td>
                     <td>
                         <div class="d-flex gap-3 mt-1">
-                            <Link :href="route('cars.edit', car.id)"><i class="bi bi-pencil text-dark" />
+                            <Link :href="route('parts.edit', part.id)"><i class="bi bi-pencil text-dark" />
                             </Link>
-                            <i @click="deleteCar(part.id)" class="bi bi-trash text-danger fix"></i>
+                            <i @click="deletePart(part.id)" class="bi bi-trash text-danger pointer"></i>
                         </div>
                     </td>
                 </tr>
@@ -84,7 +90,7 @@ defineOptions({ layout: Layout })
 
 </template>
 <style lang="css" scoped>
-.fix {
+.pointer {
     cursor: pointer;
 }
 </style>

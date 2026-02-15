@@ -18,5 +18,8 @@ Route::controller(PartController::class)->group(function () {
     Route::get('/parts', 'index')->name('parts.index');
     Route::get('/parts/create', 'create')->name('parts.create');
     Route::post('/parts', 'store')->name('parts.store');
+    Route::get('/parts/{part}/edit', 'edit')->name('parts.edit');
+    Route::patch('/parts/{part}', 'update')->name('parts.update');
     Route::delete('/parts/{part}', 'destroy')->name('parts.destroy');
+
 });

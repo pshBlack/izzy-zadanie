@@ -1,6 +1,7 @@
 <script setup>
-defineProps({
+const props = defineProps({
     "cars": Object,
+    "filters": Object
 })
 import moment from 'moment';
 import { Link, router } from '@inertiajs/vue3'
@@ -12,6 +13,18 @@ const deleteCar = (id) => {
         router.delete(route('cars.destroy', id));
     }
 }
+
+const sortBy = (field) => {
+    let direction = props.filters.direction === 'asc' && props.filters.sort === field ? "desc" : "asc";
+    router.get('/', {
+        sort: field,
+        direction: direction
+    }, {
+        preserveState: true,
+        replace: true,
+    });
+}
+
 </script>
 
 <template>
@@ -21,12 +34,12 @@ const deleteCar = (id) => {
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Registration Number</th>
-                    <th>Registered</th>
-                    <th>Parts</th>
-                    <th>Creation Date</th>
+                    <th @click="sortBy('id')">ID</th>
+                    <th @click="sortBy('name')">Name</th>
+                    <th @click="sortBy('registration_number')">Registration Number</th>
+                    <th @click="sortBy('is_registered')">Registered</th>
+                    <th @click="sortBy('parts_count')">Parts</th>
+                    <th @click="sortBy('created_aat')">Creation Date</th>
                     <th></th>
                 </tr>
             </thead>
@@ -47,7 +60,7 @@ const deleteCar = (id) => {
                             <Link :href="route('cars.show', car.id)"><i class=" bi bi-eye text-primary"></i></Link>
                             <Link class="" :href="route('cars.edit', car.id)"><i class="bi bi-pencil text-dark"></i>
                             </Link>
-                            <i @click="deleteCar(car.id)" class="bi bi-trash text-danger fix"></i>
+                            <i @click="deleteCar(car.id)" class="bi bi-trash text-danger pointer"></i>
                         </div>
                     </td>
                 </tr>
@@ -65,7 +78,7 @@ const deleteCar = (id) => {
     </div>
 </template>
 <style lang="css" scoped>
-.fix {
+.pointer {
     cursor: pointer;
 }
 </style>
