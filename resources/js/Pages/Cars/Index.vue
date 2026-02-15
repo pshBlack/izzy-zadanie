@@ -14,6 +14,7 @@ const deleteCar = (id) => {
     }
 }
 
+
 const sortBy = (field) => {
     let direction = props.filters.direction === 'asc' && props.filters.sort === field ? "desc" : "asc";
     router.get('/', {
@@ -39,7 +40,7 @@ const sortBy = (field) => {
                     <th @click="sortBy('registration_number')">Registration Number</th>
                     <th @click="sortBy('is_registered')">Registered</th>
                     <th @click="sortBy('parts_count')">Parts</th>
-                    <th @click="sortBy('created_aat')">Creation Date</th>
+                    <th @click="sortBy('created_at')">Creation Date</th>
                     <th></th>
                 </tr>
             </thead>
