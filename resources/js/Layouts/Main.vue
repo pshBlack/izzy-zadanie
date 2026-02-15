@@ -3,16 +3,16 @@ import { Link, router, Form, usePage } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 
-const searchText = ref('');
 const page = usePage();
+const searchText = ref('');
 const debounceSearch = useDebounceFn((value) => {
     const url = page.url.split('?')[0]
-    router.get(url, { search: value }, {
+    router.get(url, { ...page.props.filters, search: value }, {
         preserveState: true,
         replace: true
     })
 }, 300)
-
+const isSearcheable = () => route().current()?.endsWith('.index');
 watch(searchText, (newSearchText) => {
     debounceSearch(newSearchText || '');
 })
@@ -38,7 +38,7 @@ watch(searchText, (newSearchText) => {
                             <Link class="nav-link" :href="route('parts.create')">Add Part</Link>
                         </li>
                     </ul>
-                    <Form class="d-flex" role="search">
+                    <Form v-if="isSearcheable()" class="d-flex" role="search">
                         <input class="form-control me-2" v-model="searchText" type="search" placeholder="Search"
                             aria-label="Search" />
 
