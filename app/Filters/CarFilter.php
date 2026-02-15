@@ -4,9 +4,7 @@ namespace App\Filters;
 class CarFilter extends QueryFilter{
 
     public function search($value) {
-        if($value == null || $value == "") {
-            return;
-        }
+
         $this->builder->where('name', 'like',"%{$value}%");
     }
     public function car_id($value) {
